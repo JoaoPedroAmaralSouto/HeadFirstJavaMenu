@@ -8,6 +8,7 @@ public class Main{
         Charpters c1 = new Charpter1();
         Charpters c2 = new Charpter2();
         Charpters c3 = new Charpter3();
+        Charpters c4 = new Charpter4();
         while(choise != exercices.length) {
             InputUtils.clearTerminal();
             System.out.println("Head first exercices");
