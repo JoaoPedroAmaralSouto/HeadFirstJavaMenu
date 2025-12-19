@@ -1,17 +1,14 @@
 package Use_a_cabeca_Java;
 
 public class Charpter1 extends Charpters {
-    protected static void showCharpter1(){
-        InputUtils.clearTerminal();
-        charpter = new String[]{"DooBee", "Phrase-o-matic", "Shuffle1"};
-        System.out.println("Charpter 1");
-        i = 0;
-        while(i < charpter.length){
-            System.out.println(i + 1 + "-" + charpter[i]);
-            i += 1;
-        }
-        System.out.println("Select a exercice above");
+    public Charpter1(){
         choiseExercices = 0;
+        i = 0;
+        charpter = new String [] {"DooBee", "PhraseOMatic", "Shuffle1"};
+    }
+
+    @Override
+    protected void execute(){
         while(choiseExercices <= 0 || choiseExercices > charpter.length){
             choiseExercices = VerifyInt.verify(Br.getReader());
         }

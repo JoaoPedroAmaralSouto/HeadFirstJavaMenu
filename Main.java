@@ -3,9 +3,11 @@ package Use_a_cabeca_Java;
 public class Main{
     public static void main (String[] args){
         int choise = 0;
-        int choiseExercices = 0;
         String[] exercices= {"Charpter 1", "Charpter 2", "Charpter 3", "Exit"};
         int i;
+        Charpters c1 = new Charpter1();
+        Charpters c2 = new Charpter2();
+        Charpters c3 = new Charpter3();
         while(choise != exercices.length) {
             InputUtils.clearTerminal();
             System.out.println("Head first exercices");
@@ -20,9 +22,18 @@ public class Main{
                 choise = VerifyInt.verify(Br.getReader());
             }
             switch (choise) {
-                case 1 -> Charpter1.showCharpter1();
-                case 2 -> Charpter2.showCharpter2();
-                case 3 -> Charpter3.showCharpter3();
+                case 1 -> {
+                    c1.showMenu();
+                    c1.execute();
+                }
+                case 2 -> {
+                    c2.showMenu();
+                    c2.execute();
+                }
+                case 3 -> {
+                    c3.showMenu();
+                    c3.execute();
+                }
                 case 4 -> { }
                 default -> System.out.println("Invalid choise.");
             }
