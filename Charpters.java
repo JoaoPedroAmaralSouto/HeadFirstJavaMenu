@@ -6,7 +6,7 @@ public abstract class Charpters {
     protected String[] charpter;
     public void showMenu(){
         InputUtils.clearTerminal();
-        i = 0
+        i = 0;
         while(i < charpter.length){
             System.out.println(i + 1 + "-" + charpter[i]);
             i += 1;
