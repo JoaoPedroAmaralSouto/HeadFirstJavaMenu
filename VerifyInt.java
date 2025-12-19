@@ -1,4 +1,6 @@
 package Use_a_cabeca_Java;
+import java.io.BufferedReader;
+
 
 public class VerifyInt{
     public static int verify(BufferedReader br){
