@@ -1,0 +1,14 @@
+#Ignore .class files
+*.class
+
+#Ignore build dir
+bin/
+out/
+target/
+
+#Ignore IDEA	
+.idea/
+*.iml
+
+#Ignore system
+.DS_store
