@@ -3,7 +3,7 @@ package Use_a_cabeca_Java;
 public class Main{
     public static void main (String[] args){
         int choise = 0;
-        String[] exercices= {"Charpter 1", "Charpter 2", "Charpter 3", "Charpter 4", "Charpter 5", "Exit"};
+        String[] exercices= {"Charpter 1", "Charpter 2", "Charpter 3", "Charpter 4", "Exit"};
         int i;
         Charpters c1 = new Charpter1();
         Charpters c2 = new Charpter2();
@@ -42,7 +42,7 @@ public class Main{
                 }
                 case 5 -> {
 
-                }
+                 }
                 default -> System.out.println("Invalid choise.");
             }
             if(choise != exercices.length && choise != 0){
