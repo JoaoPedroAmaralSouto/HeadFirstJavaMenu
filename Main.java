@@ -3,12 +3,13 @@ package Use_a_cabeca_Java;
 public class Main{
     public static void main (String[] args){
         int choise = 0;
-        String[] exercices= {"Charpter 1", "Charpter 2", "Charpter 3", "Charpter 4", "Exit"};
+        String[] exercices= {"Charpter 1", "Charpter 2", "Charpter 3", "Charpter 4", "Charpter 5", "Exit"};
         int i;
         Charpters c1 = new Charpter1();
         Charpters c2 = new Charpter2();
         Charpters c3 = new Charpter3();
         Charpters c4 = new Charpter4();
+        Charpters c5 = new Charpter5();
         while(choise != exercices.length) {
             InputUtils.clearTerminal();
             System.out.println("Head first exercices");
@@ -39,7 +40,9 @@ public class Main{
                     c4.showMenu();
                     c4.execute();
                 }
-                case 5 -> { }
+                case 5 -> {
+
+                }
                 default -> System.out.println("Invalid choise.");
             }
             if(choise != exercices.length && choise != 0){
