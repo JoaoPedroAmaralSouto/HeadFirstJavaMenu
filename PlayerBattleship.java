@@ -4,9 +4,7 @@ public class PlayerBattleship {
     protected String choise = null;
     protected int contChoises = 0;
     protected String setChoise(){
-        while(choise == null){
-            verifyStringBattleship.verify(Br.getReader());
-        }
+        choise = verifyStringBattleship.verify(Br.getReader());
         return choise;
     }
 }
