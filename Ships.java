@@ -6,6 +6,7 @@ public class Ships{
     protected void setPosition(){
         Random rand = new Random();
         Position = new String[3];
+        GetIndex getIndex = new GetIndex();
         int index = 0;
         int indexNext = 0;
         int indexNextNumber = 0;
@@ -20,20 +21,21 @@ public class Ships{
                 Position[i] = validation.getFirtPosition(Position, i, index, Letters, Numbers, rand);
             }
             else{
-                indexNext = validation.getPositionY(index, indexNext, Letters, rand);
-                indexNextNumber = ValidateShips.getPositionX(indexNext, indexNextNumber, Numbers, rand);
+                index = getIndex.index(Position[i], Letters);
+                indexNext = validation.getPositionY(index, Letters.length, rand);
+                indexNextNumber = validation.getPositionX(indexNext, Numbers.length, rand);
                 j = 0;
                 while(j < i){
                     flag = 1;
                     if(Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
                         while(flag == 1){
-                            indexNextNumber = ValidateShips.getPositionX(indexNext, indexNextNumber, Numbers, rand);
+                            indexNextNumber = validation.getPositionX(indexNext, Numbers.length, rand);
                             if(!Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
                                 flag = 0;
                         }
                         else if(!Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
                             while(flag == 1){
-                                indexNextNumber = ValidateShips.getPositionX(indexNext, indexNextNumber, Numbers, rand);
+                                indexNextNumber = validation.getPositionX(indexNext, Numbers.length, rand);
                                 if(Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
                                     flag = 0;
                             }
