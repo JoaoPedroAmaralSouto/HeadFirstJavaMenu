@@ -30,12 +30,12 @@ public class Ships{
                             if(!Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
                                 flag = 0;
                         }
-                        else if(!Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
-                            while(flag == 1){
-                                indexNextNumber = setPosition(Numbers.length);
-                                if(Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
-                                    flag = 0;
-                            }
+                    }
+                    else if(!Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
+                        while(flag == 1){
+                            indexNextNumber = setPosition(Numbers.length);
+                            if(Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
+                                flag = 0;
                         }
                     }
                     j++;

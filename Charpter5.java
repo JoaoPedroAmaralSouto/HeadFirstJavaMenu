@@ -4,7 +4,7 @@ public class Charpter5 extends Charpters{
     public Charpter5(){
         i = 0;
         choiseExercices = 0;
-        charpter = new String[] {"Battleships"}
+        charpter = new String[] {"Battleships"};
     }
 
     protected void execute(){

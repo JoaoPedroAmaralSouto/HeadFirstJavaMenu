@@ -17,8 +17,8 @@ public class Board {
         }
     }
 
-    public boolean canPlaceShip(Ship newShip) {
-        for (Ship existing : ships) {
+    public boolean canPlaceShip(Ships newShip) {
+        for (Ships existing : ships) {
             if (collides(existing, newShip)) {
                 return false;
             }
@@ -26,7 +26,7 @@ public class Board {
         return true;
     }
 
-    private boolean collides(Ship a, Ship b) {
+    private boolean collides(Ships a, Ships b) {
         for (String posA : a.getPositions()) {
             for (String posB : b.getPositions()) {
                 if (posA.equals(posB)) {
@@ -39,8 +39,8 @@ public class Board {
 
     public void viewShips(){
         int flag;
-        for(int i = Letters.length() - 1; i >= 0; i--){
-            for(int j = 0; j < Numbers.length(); j++){
+        for(int i = Letters.length - 1; i >= 0; i--){
+            for(int j = 0; j < Numbers.length; j++){
                 flag = 0;
                 if(j == 0){
                     System.out.println();
