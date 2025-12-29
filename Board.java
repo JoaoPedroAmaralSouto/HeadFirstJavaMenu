@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Board {
     protected ArrayList<Ships> ships = new ArrayList();
+    protected final String [] Letters = {"A", "B", "C", "D", "E", "F", "G"};
+    protected final String [] Numbers = {"0", "1", "2", "3", "4", "5", "6"};
     public void setShips(){
         Random rand = new Random();
         int limit = rand.nextInt(4) + 1;
@@ -36,6 +38,23 @@ public class Board {
     }
 
     public void viewShips(){
-
+        int flag;
+        for(int i = Letters.length() - 1; i >= 0; i--){
+            for(int j = 0; j < Numbers.length(); j++){
+                flag = 0;
+                if(j == 0){
+                    System.out.println();
+                }
+                for(ArrayList<Ships> ship : ships){
+                    if(ship.getPositions() == Letters[i] + Numbers[j]){
+                        System.out.print("X");
+                        flag = 1;
+                    }
+                }
+                if(flag == 0){
+                    System.out.print("*");
+                }
+            }
+        }
     }
 }

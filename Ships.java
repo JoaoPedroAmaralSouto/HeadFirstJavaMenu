@@ -47,7 +47,7 @@ public class Ships{
         }
     }
 
-    protected String[] getPosition(){
+    protected String[] getPositions(){
         return Position;
     }
 

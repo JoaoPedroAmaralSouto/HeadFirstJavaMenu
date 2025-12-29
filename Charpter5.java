@@ -11,10 +11,9 @@ public class Charpter5 extends Charpters{
         i = 0;
         choiseExercices = 0;
         choiseExercices = VerifyInt.verify(Br.getReader());
-            i += 1;
-        }
         switch(choiseExercices){
-            case 1 ->
+            case 1 -> GameLauncherBattleShip.start();
+            default -> System.out.println("Invalid choise.");
         }
     }
 }
