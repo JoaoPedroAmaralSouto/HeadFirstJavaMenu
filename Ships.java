@@ -9,10 +9,16 @@ public class Ships{
     protected int indexNextNumber = 0;
     protected final String [] Letters = {"A", "B", "C", "D", "E", "F", "G"};
     protected final String [] Numbers = {"0", "1", "2", "3", "4", "5", "6"};
-    protected void setPosition(){
+    protected void setPositionOfShips(){
         int i = 0;
         int flag = 0;
         int j = 0;
+        int flag2 = -2;
+        while(i < 3) {
+            Position[i] = null;
+            i++;
+        }
+        i = 0;
         while(i < 3){
             if(i == 0){
                 Position[i] = getFirtPosition();
@@ -24,18 +30,62 @@ public class Ships{
                 j = 0;
                 while(j < i){
                     flag = 1;
-                    if(Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
-                        while(flag == 1){
-                            indexNextNumber = setPosition(Numbers.length);
-                            if(!Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
-                                flag = 0;
+                    if(Position[1] != null){
+                       flag2 = verifyDirection();
+                    }
+                    if(flag2 == -1){
+                        if(Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
+                            while(flag == 1){
+                                indexNextNumber = setPosition(Numbers.length);
+                                if(!Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
+                                    flag = 0;
+                            }
+                        }
+                        else if(!Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
+                            while(flag == 1){
+                                indexNextNumber = setPosition(Numbers.length);
+                                if(Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
+                                    flag = 0;
+                            }
                         }
                     }
-                    else if(!Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
-                        while(flag == 1){
-                            indexNextNumber = setPosition(Numbers.length);
-                            if(Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
-                                flag = 0;
+                    else if(flag2 == 1){
+                        if(Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
+                            while(flag == 1){
+                                indexNext = setPosition(Letters.length);
+                                if(!Letters[indexNext].equals(Position[j].substring(1,2)))
+                                    flag = 0;
+                            }
+                        }
+                        else if(!Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
+                            while(flag == 1){
+                                indexNextNumber = setPosition(Numbers.length);
+                                if(Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
+                                    flag = 0;
+                            }
+                        }
+                        else if(Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
+                            while(flag == 1){
+                                indexNext = setPosition(Letters.length);
+                                if(!Letters[indexNext].equals(Position[j].substring(1,2)))
+                                    flag = 0;
+                            }
+                        }
+                    }
+                    else if(flag2 == 0){
+                        if(Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
+                            while(flag == 1){
+                                indexNextNumber = setPosition(Numbers.length);
+                                if(!Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
+                                    flag = 0;
+                            }
+                        }
+                        else if(!Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
+                            while(flag == 1){
+                                indexNext = setPosition(Letters.length);
+                                if(Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
+                                    flag = 0;
+                            }
                         }
                     }
                     j++;
@@ -45,6 +95,16 @@ public class Ships{
             }
             i++;
         }
+    }
+
+    protected int verifyDirection(){
+        if(Position[0].substring(0,1).equals(Position[1].substring(0,1)) &&  !Position[0].substring(1,2).equals(Position[1].substring(1,2))){
+            return 0;//Horizontal
+        }
+        else if(!Position[0].substring(0,1).equals(Position[1].substring(0,1)) &&  Position[0].substring(1,2).equals(Position[1].substring(1,2))){
+            return 1;//Vertical
+        }
+        return -1;
     }
 
     protected String[] getPositions(){
@@ -69,26 +129,26 @@ public class Ships{
     private int setNumberPosition(int limit, int index2, Random rand) {
         int aux = 0;
         if(index2 == limit - 1){
-            aux = rand.nextInt(index2 + 1) + limit - 2;
+            aux = rand.nextInt(limit - 2, index2 + 1);
         }
         else if(index2 == 0){
             aux = rand.nextInt(index2 + 2);
         }
         else{
-            aux = rand.nextInt(index2 + 2) + index2 - 1;
+            aux = rand.nextInt(index2 - 1, index2 + 2);
         }
         return aux;
     }
     public int setPosition(int limit){
         int aux = 0;
         if (index == limit - 1) {
-            aux = rand.nextInt(index + 1) + limit - 2;
+            aux = rand.nextInt(limit - 2, index + 1);
         }
         else if (index == 0) {
             aux = rand.nextInt(index + 2);
         }
         else {
-            aux = rand.nextInt(index + 2) + index - 1;
+            aux = rand.nextInt(index - 1, index + 2);
         }
         return aux;
     }
@@ -113,5 +173,3 @@ public class Ships{
         return -1;
     }
 }
-
-
