@@ -26,7 +26,7 @@ public class Ships{
             else{
                 index = getIndex(Position[i - 1], Letters);
                 indexNext = setPosition(Letters.length);
-                indexNextNumber = setPosition(Numbers.length);
+                indexNextNumber = setNumberPosition(Numbers.length, indexNext);
                 j = 0;
                 while(j < i){
                     flag = 1;
@@ -43,7 +43,7 @@ public class Ships{
                         }
                         else if(!Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
                             while(flag == 1){
-                                indexNextNumber = setNumberPosition(Numbers.length, indexNext);
+                                indexNextNumber = getIndex(Position[j], Numbers);
                                 if(Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
                                     flag = 0;
                             }
@@ -53,13 +53,13 @@ public class Ships{
                         if(Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
                             while(flag == 1){
                                 indexNext = setPosition(Letters.length);
-                                if(!Letters[indexNext].equals(Position[j].substring(1,2)))
+                                if(!Letters[indexNext].equals(Position[j].substring(0,1)))
                                     flag = 0;
                             }
                         }
                         else if(!Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
                             while(flag == 1){
-                                indexNextNumber = setNumberPosition(Numbers.length, indexNext);
+                                indexNextNumber = getIndex(Position[j], Numbers);
                                 if(Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
                                     flag = 0;
                             }
@@ -67,7 +67,8 @@ public class Ships{
                         else if(Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
                             while(flag == 1){
                                 indexNext = setPosition(Letters.length);
-                                if(!Letters[indexNext].equals(Position[j].substring(1,2)))
+                                indexNextNumber = getIndex(Position[j], Numbers);
+                                if(!Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
                                     flag = 0;
                             }
                         }
@@ -82,8 +83,16 @@ public class Ships{
                         }
                         else if(!Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
                             while(flag == 1){
-                                indexNext = setPosition(Letters.length);
-                                if(Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
+                                indexNext = getIndex(Position[j], Letters);
+                                if(Letters[indexNext].equals(Position[j].substring(0,1)))
+                                    flag = 0;
+                            }
+                        }
+                        else if(!Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
+                            while(flag == 1){
+                                indexNext = getIndex(Position[j], Letters);
+                                indexNextNumber = setNumberPosition(Numbers.length, indexNext);
+                                if(Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
                                     flag = 0;
                             }
                         }
@@ -151,6 +160,7 @@ public class Ships{
         else {
             aux = rand.nextInt(index - 1, index + 2);
         }
+        System.out.println(aux);
         return aux;
     }
     public int getIndex(String position, String [] library){

@@ -13,20 +13,16 @@ public class Board {
         while(ships.size() < limit){
             Ships ship = new Ships();
             ship.setPositionOfShips();
-            System.out.println("Teste");
             if(canPlaceShip(ship))
                 ships.add(ship);
-            System.out.println(ships.size());
         }
     }
 
     public boolean canPlaceShip(Ships newShip) {
         for (Ships existing : ships) {
             if (collides(existing, newShip)) {
-                System.out.println("Teste3");
                 return false;
             }
-            System.out.println("Teste2");
         }
         return true;
     }
