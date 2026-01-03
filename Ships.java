@@ -159,7 +159,6 @@ public class Ships{
         else {
             aux = rand.nextInt(index - 1, index + 2);
         }
-        System.out.println(aux);
         return aux;
     }
     private int getIndex(String position, String [] library){

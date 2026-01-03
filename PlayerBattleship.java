@@ -1,10 +1,20 @@
 package Use_a_cabeca_Java;
+import java.io.IOException;
+
 
 public class PlayerBattleship {
-    protected String choise = null;
-    protected int contChoises = 0;
-    protected String setChoise(){
-        choise = VerifyStringBattleship.verify(Br.getReader());
+    private String choise = null;
+
+    protected String getChoise() {
         return choise;
+    }
+
+    protected void setChoise() {
+        try{
+            choise = Br.getReader().readLine();
+        }
+        catch (Exception e){
+            System.err.println("ERROR: " + e.getMessage());
+        }
     }
 }
