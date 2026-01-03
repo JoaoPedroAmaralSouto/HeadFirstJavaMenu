@@ -2,18 +2,18 @@ package Use_a_cabeca_Java;
 import java.util.Random;
 
 public class Ships{
-    protected String[] Position = new String[3];
-    protected Random rand = new Random();
-    protected int index = 0;
-    protected int indexNext = 0;
-    protected int indexNextNumber = 0;
-    protected final String [] Letters = {"A", "B", "C", "D", "E", "F", "G"};
-    protected final String [] Numbers = {"0", "1", "2", "3", "4", "5", "6"};
+    private final String[] Position = new String[3];
+    private final Random rand = new Random();
+    private int index = 0;
+    private final String [] Letters = {"A", "B", "C", "D", "E", "F", "G"};
+    private final String [] Numbers = {"0", "1", "2", "3", "4", "5", "6"};
     protected void setPositionOfShips(){
         int i = 0;
-        int flag = 0;
-        int j = 0;
+        int flag;
+        int j;
         int flag2 = -2;
+        int indexNext;
+        int indexNextNumber;
         while(i < 3) {
             Position[i] = null;
             i++;
@@ -21,7 +21,7 @@ public class Ships{
         i = 0;
         while(i < 3){
             if(i == 0){
-                Position[i] = getFirtPosition();
+                Position[i] = getFirstPosition();
             }
             else{
                 index = getIndex(Position[i - 1], Letters);
@@ -105,8 +105,7 @@ public class Ships{
             i++;
         }
     }
-
-    protected int verifyDirection(){
+        private int verifyDirection(){
         if(Position[0].substring(0,1).equals(Position[1].substring(0,1)) &&  !Position[0].substring(1,2).equals(Position[1].substring(1,2))){
             return 0;//Horizontal
         }
@@ -120,7 +119,7 @@ public class Ships{
         return Position;
     }
 
-    public String getFirtPosition() {
+    private String getFirstPosition() {
         int index2 = randomIndex(Letters.length, rand);
         int indexNumber2 = setNumberPosition(Numbers.length, index2);
 
@@ -135,8 +134,8 @@ public class Ships{
         return rand.nextInt(limit);
     }
 
-    public int setNumberPosition(int limit, int index2) {
-        int aux = 0;
+    private int setNumberPosition(int limit, int index2) {
+        int aux;
         if (index2 == limit - 1) {
             aux = rand.nextInt(limit - 2, index2 + 1);
         }
@@ -149,8 +148,8 @@ public class Ships{
         return aux;
     }
 
-    public int setPosition(int limit){
-        int aux = 0;
+    private int setPosition(int limit){
+        int aux;
         if (index == limit - 1) {
             aux = rand.nextInt(limit - 2, index + 1);
         }
@@ -163,7 +162,7 @@ public class Ships{
         System.out.println(aux);
         return aux;
     }
-    public int getIndex(String position, String [] library){
+    private int getIndex(String position, String [] library){
         int j = 0;
         if(library[0].equals("A")){
             while(j < library.length){
