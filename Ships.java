@@ -137,7 +137,7 @@ public class Ships{
     private int setNumberPosition(int limit, int index2) {
         int aux;
         if (index2 == limit - 1) {
-            aux = rand.nextInt(limit - 2, index2 + 1);
+            aux = rand.nextInt(limit - 3, index2 -1);
         }
         else if (index2 == 0) {
             aux = rand.nextInt(index2 + 2);
@@ -151,7 +151,7 @@ public class Ships{
     private int setPosition(int limit){
         int aux;
         if (index == limit - 1) {
-            aux = rand.nextInt(limit - 2, index + 1);
+            aux = rand.nextInt(limit - 3, index -1);
         }
         else if (index == 0) {
             aux = rand.nextInt(index + 2);

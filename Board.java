@@ -18,9 +18,18 @@ public class Board {
         this.totalShips = totalShips;
     }
 
+    public void setContChoises() {
+        this.contChoises++;
+    }
+
+    public int getContChoises() {
+        return contChoises;
+    }
+
     public void setShips(){
         Random rand = new Random();
-        int limit = rand.nextInt(4) + 1;
+        //int limit = rand.nextInt(4) + 1;
+        int limit = 4;
         setTotalShips(limit);
         while(ships.size() < limit){
             Ships ship = new Ships();
@@ -50,14 +59,32 @@ public class Board {
         return false;
     }
 
+    private boolean verifyHitedShip(String hit) {
+        for (String existing : attempts) {
+            if (existing.equals(hit)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected boolean verifyHit(String hit){
         for (Ships ship : ships) {
             for(String posA : ship.getPositions()){
-                if(hit.contains(posA)){
-                    totalShips--;
+                if(hit.equals(posA)){
+                    if(!verifyHitedShip(hit)){
+                        totalShips--;
+                        attempts.add(hit);
+                    }
+                    if(!hit.equals("cheat") && !hit.equals("exit")){
+                        setContChoises();
+                    }
                     return true;
                 }
             }
+        }
+        if(!hit.equals("cheat") && !hit.equals("exit")){
+            setContChoises();
         }
         attempts.add(hit);
         return false;
@@ -73,6 +100,43 @@ public class Board {
                 }
                 position = Letters[i] + Numbers[j];
                 hit = false;
+                for(String attempt : attempts){
+                    if(position.contains(attempt)){
+                        System.out.print("X");
+                        hit = true;
+                        break;
+                    }
+                }
+                if(!hit){
+                    System.out.print("*");
+                }
+            }
+        }
+        System.out.println();
+        System.out.println("set exit to end game");
+    }
+
+    protected void cheatedViewShips(){
+        String position;
+        boolean hit;
+        int cont = 0;
+        for(int i = Letters.length - 1; i >= 0; i--){
+            for(int j = 0; j < Numbers.length; j++){
+                if(j == 0){
+                    System.out.println();
+                }
+                position = Letters[i] + Numbers[j];
+                hit = false;
+                for(Ships ship : ships){
+                    for(String posA : ship.getPositions()){
+                        if(position.equals(posA)){
+                            System.out.print(cont);
+                            cont++;
+                            hit = true;
+                            break;
+                        }
+                    }
+                }
                 for(String attempt : attempts){
                     if(position.contains(attempt)){
                         System.out.print("X");
