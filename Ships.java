@@ -11,11 +11,9 @@ public class Ships{
     private final int columns = Numbers.length;
     protected void setPositionOfShips(){
         int i = 0;
-        int flag;
-        int j;
-        int flag2 = -2;
-        int indexNext;
-        int indexNextNumber;
+        int indexNext = 0;
+        int indexNextNumber = 0;
+        boolean direction;
         while(i < 3) {
             Position[i] = null;
             i++;
@@ -26,108 +24,24 @@ public class Ships{
                 Position[i] = getFirstPosition();
             }
             else{
-                if(Position[1] != null){
-                    flag2 = verifyDirection();
-                    orderPositionOfShips();
-                }
+                direction = rand.nextBoolean();
                 index = getIndex(Position[i - 1], Letters);
-                indexNext = setRow(rows);
-                indexNextNumber = setColumn(columns, indexNext);
-                j = 0;
+                if(direction){
+                    indexNext = getIndex(Position[i - 1], Letters);
+                    indexNextNumber = setColumn(columns, indexNext);
+                }
+                else if(!direction){
+                    indexNextNumber = getIndex(Position[i - 1], Numbers);
+                    indexNext = setColumn(columns, indexNext);
+                }
                 Position[i] = Letters[indexNext];
                 Position[i] += Numbers[indexNextNumber];
+                if(Position[1] != null){
+                    orderPositionOfShips();
+                }
                 boolean verify = verifyExtremities(Position[i], Position[i - 1]);
-                /*if(!verify){
+                if(!verify){
                     --i;
-                }*/
-                while(j < i){
-                    flag = 1;
-                    if (i == 1){
-                        if(Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
-                            while(flag == 1){
-                                indexNextNumber = setColumn(columns, indexNext);
-                                if(!Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
-                                    flag = 0;
-                            }
-                        }
-                        else if(!Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
-                            while(flag == 1){
-                                indexNextNumber = getIndex(Position[j], Numbers);
-                                if(Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
-                                    flag = 0;
-                            }
-                        }
-                        j++;
-                    }
-                    else{
-                        if(Position[i].equals(Position[j])){
-                            j = 0;
-                            indexNext = setRow(rows);
-                            indexNextNumber = setColumn(columns, indexNext);
-                        }
-                        else{
-                            if(flag2 == 1){
-                            /*if(Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
-                                while(flag == 1){
-                                    indexNext = setPosition(Letters.length);
-                                    if(!Letters[indexNext].equals(Position[j].substring(0,1)))
-                                        flag = 0;
-                                }
-                            }
-                            else*/ if(!Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
-                                    while(flag == 1){
-                                        indexNextNumber = getIndex(Position[j], Numbers);
-                                        j = 0;
-                                        if(Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
-                                            flag = 0;
-                                    }
-                                }
-                                else if(Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
-                                    while(flag == 1){
-                                        indexNext = setRow(rows);
-                                        indexNextNumber = getIndex(Position[j], Numbers);
-                                        j = 0;
-                                        if(!Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
-                                            flag = 0;
-                                    }
-                                }
-                                else{
-                                    j++;
-                                }
-                            }
-                            else if(flag2 == 0){
-                            /*if(Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
-                                while(flag == 1){
-                                    indexNextNumber = setColumn(Numbers.length, indexNext);
-                                    if(!Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
-                                        flag = 0;
-                                }
-                            }
-                            else */ if(!Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
-                                    while(flag == 1){
-                                        indexNext = getIndex(Position[j], Letters);
-                                        j = 0;
-                                        if(Letters[indexNext].equals(Position[j].substring(0,1)))
-                                            flag = 0;
-                                    }
-                                }
-                                else if(!Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
-                                    while(flag == 1){
-                                        indexNext = getIndex(Position[j], Letters);
-                                        indexNextNumber = setColumn(columns, indexNext);
-                                        j = 0;
-                                        if(Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
-                                            flag = 0;
-                                    }
-                                }
-                                else{
-                                    j++;
-                                }
-                            }
-                        }
-                    }
-                    Position[i] = Letters[indexNext];
-                    Position[i] += Numbers[indexNextNumber];
                 }
             }
             i++;
@@ -174,18 +88,24 @@ public class Ships{
                     return col1 == col2 + 1;
                 }
             }
+            else if((col2 == columns - 1 || col2 == columns - 2) && col1 == col2){
+                if(row2 == rows -1 || row2 == rows - 2){
+                    return row1 == row2 - 1;
+                }
+                else if (row2 == 0 || row2 == 1){
+                    return row1 == row2 + 1;
+                }
+            }
+            else if((col2 == 0 || col2 == 1) && col1 == col2){
+                if(row2 == rows -1 || row2 == rows - 2){
+                    return row1 == row2 - 1;
+                }
+                else if (row2 == 0 || row2 == 1){
+                    return row1 == row2 + 1;
+                }
+            }
         }
         return false;
-    }
-
-    private int verifyDirection(){
-        if(Position[0].substring(0,1).equals(Position[1].substring(0,1)) &&  !Position[0].substring(1,2).equals(Position[1].substring(1,2))){
-            return 0;//Horizontal
-        }
-        else if(!Position[0].substring(0,1).equals(Position[1].substring(0,1)) &&  Position[0].substring(1,2).equals(Position[1].substring(1,2))){
-            return 1;//Vertical
-        }
-        return -1;
     }
 
     protected String[] getPositions(){
