@@ -11,9 +11,10 @@ public class Ships{
     private final int columns = Numbers.length;
     protected void setPositionOfShips(){
         int i = 0;
-        int indexNext = 0;
-        int indexNextNumber = 0;
+        int indexNext;
+        int indexNextNumber;
         boolean direction;
+        String temporaryPosition;
         while(i < 3) {
             Position[i] = null;
             i++;
@@ -24,28 +25,45 @@ public class Ships{
                 Position[i] = getFirstPosition();
             }
             else{
+                boolean verify;
                 direction = rand.nextBoolean();
-                index = getIndex(Position[i - 1], Letters);
                 if(direction){
                     indexNext = getIndex(Position[i - 1], Letters);
                     indexNextNumber = setColumn(columns, indexNext);
                 }
-                else if(!direction){
+                else{
+                    index = getIndex(Position[i - 1], Letters);
                     indexNextNumber = getIndex(Position[i - 1], Numbers);
-                    indexNext = setColumn(columns, indexNext);
+                    indexNext = setRow(rows);
                 }
-                Position[i] = Letters[indexNext];
-                Position[i] += Numbers[indexNextNumber];
-                if(Position[1] != null){
-                    orderPositionOfShips();
-                }
-                boolean verify = verifyExtremities(Position[i], Position[i - 1]);
+                temporaryPosition = Letters[indexNext];
+                temporaryPosition += Numbers[indexNextNumber];
+                verify = verifyIfTemporaryPositionExists(temporaryPosition, i);
                 if(!verify){
+                    Position[i] = temporaryPosition;
+                    if(Position[1] != null){
+                        orderPositionOfShips();
+                    }
+                    verify = verifyExtremities(Position[i], Position[i - 1]);
+                    if(!verify){
+                        --i;
+                    }
+                }
+                else{
                     --i;
                 }
             }
             i++;
         }
+    }
+
+    private boolean verifyIfTemporaryPositionExists(String position, int limit){
+        for (int i = 0; i < limit; i++) {
+            if (Position[i].equals(position)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void orderPositionOfShips() {
@@ -79,6 +97,9 @@ public class Ships{
                 else if (col2 == 0 || col2 == 1){
                     return col1 == col2 + 1;
                 }
+                else{
+                    return col1 == col2 + 1 ||  col1 == col2 - 1;
+                }
             }
             else if((row2 == 0 || row2 == 1) && row1 == row2){
                 if(col1 == columns -1 || col1 == columns - 2){
@@ -86,6 +107,31 @@ public class Ships{
                 }
                 else if (col2 == 0 || col2 == 1){
                     return col1 == col2 + 1;
+                }
+                else{
+                    return col1 == col2 + 1 ||  col1 == col2 - 1;
+                }
+            }
+            else if ((row2 != rows - 1 && row2 != rows - 2) && row1 == row2){
+                if(col1 == columns -1 || col1 == columns - 2){
+                    return col1 == col2 - 1;
+                }
+                else if (col2 == 0 || col2 == 1){
+                    return col1 == col2 + 1;
+                }
+                else{
+                    return col1 == col2 + 1 ||  col1 == col2 - 1;
+                }
+            }
+            else if((row2 != 0 && row2 != 1) && row1 == row2){
+                if(col1 == columns -1 || col1 == columns - 2){
+                    return col1 == col2 - 1;
+                }
+                else if (col2 == 0 || col2 == 1){
+                    return col1 == col2 + 1;
+                }
+                else{
+                    return col1 == col2 + 1 ||  col1 == col2 - 1;
                 }
             }
             else if((col2 == columns - 1 || col2 == columns - 2) && col1 == col2){
@@ -95,6 +141,9 @@ public class Ships{
                 else if (row2 == 0 || row2 == 1){
                     return row1 == row2 + 1;
                 }
+                else{
+                    return row1 == row2 + 1 ||  row1 == row2 - 1;
+                }
             }
             else if((col2 == 0 || col2 == 1) && col1 == col2){
                 if(row2 == rows -1 || row2 == rows - 2){
@@ -102,6 +151,31 @@ public class Ships{
                 }
                 else if (row2 == 0 || row2 == 1){
                     return row1 == row2 + 1;
+                }
+                else{
+                    return row1 == row2 + 1 ||  row1 == row2 - 1;
+                }
+            }
+            else if((col2 != columns - 1 && col2 != columns - 2) && col1 == col2){
+                if(row2 == rows -1 || row2 == rows - 2) {
+                    return row1 == row2 - 1;
+                }
+                else if (row2 == 0 || row2 == 1){
+                    return row1 == row2 + 1;
+                }
+                else{
+                    return row1 == row2 + 1 ||  row1 == row2 - 1;
+                }
+            }
+            else if((col2 != 0 && col2 != 1) && col1 == col2){
+                if(row2 == rows -1 || row2 == rows - 2){
+                    return row1 == row2 - 1;
+                }
+                else if (row2 == 0 || row2 == 1){
+                    return row1 == row2 + 1;
+                }
+                else{
+                    return row1 == row2 + 1 ||  row1 == row2 - 1;
                 }
             }
         }
