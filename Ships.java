@@ -7,6 +7,8 @@ public class Ships{
     private int index = 0;
     private final String [] Letters = {"A", "B", "C", "D", "E", "F", "G"};
     private final String [] Numbers = {"0", "1", "2", "3", "4", "5", "6"};
+    private final int rows = Letters.length;
+    private final int columns = Numbers.length;
     protected void setPositionOfShips(){
         int i = 0;
         int flag;
@@ -25,8 +27,8 @@ public class Ships{
             }
             else{
                 index = getIndex(Position[i - 1], Letters);
-                indexNext = setPosition(Letters.length);
-                indexNextNumber = setNumberPosition(Numbers.length, indexNext);
+                indexNext = setPosition(rows);
+                indexNextNumber = setNumberPosition(columns, indexNext);
                 j = 0;
                 Position[i] = Letters[indexNext];
                 Position[i] += Numbers[indexNextNumber];
@@ -38,7 +40,7 @@ public class Ships{
                     if (i == 1){
                         if(Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
                             while(flag == 1){
-                                indexNextNumber = setNumberPosition(Numbers.length, indexNext);
+                                indexNextNumber = setNumberPosition(columns, indexNext);
                                 if(!Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
                                     flag = 0;
                             }
@@ -55,8 +57,8 @@ public class Ships{
                     else{
                         if(Position[i].equals(Position[j])){
                             j = 0;
-                            indexNext = setPosition(Letters.length);
-                            indexNextNumber = setNumberPosition(Numbers.length, indexNext);
+                            indexNext = setPosition(rows);
+                            indexNextNumber = setNumberPosition(columns, indexNext);
                         }
                         else{
                             if(flag2 == 1){
@@ -77,7 +79,7 @@ public class Ships{
                                 }
                                 else if(Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
                                     while(flag == 1){
-                                        indexNext = setPosition(Letters.length);
+                                        indexNext = setPosition(rows);
                                         indexNextNumber = getIndex(Position[j], Numbers);
                                         j = 0;
                                         if(!Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
@@ -107,7 +109,7 @@ public class Ships{
                                 else if(!Letters[indexNext].equals(Position[j].substring(0,1)) && Numbers[indexNextNumber].equals(Position[j].substring(1,2))){
                                     while(flag == 1){
                                         indexNext = getIndex(Position[j], Letters);
-                                        indexNextNumber = setNumberPosition(Numbers.length, indexNext);
+                                        indexNextNumber = setNumberPosition(columns, indexNext);
                                         j = 0;
                                         if(Letters[indexNext].equals(Position[j].substring(0,1)) && !Numbers[indexNextNumber].equals(Position[j].substring(1,2)))
                                             flag = 0;
@@ -135,7 +137,9 @@ public class Ships{
             for (String position2 : Position){
                 if(!position.equals(position2)){
                     if(position2.substring(0,1).equals(position.substring(0,1)) && !position2.substring(1,2).equals(position.substring(1,2))){
-                        if(Integer.parseInt(position2.substring(1,2)))
+                        if(Integer.parseInt(position2.substring(1,2)) == 0){
+
+                        }
                     }
                 }
             }
@@ -164,8 +168,8 @@ public class Ships{
     }
 
     private String getFirstPosition() {
-        int index2 = randomIndex(Letters.length, rand);
-        int indexNumber2 = setNumberPosition(Numbers.length, index2);
+        int index2 = randomIndex(rows, rand);
+        int indexNumber2 = setNumberPosition(columns, index2);
 
         return buildPosition(Letters[index2], Numbers[indexNumber2]);
     }
