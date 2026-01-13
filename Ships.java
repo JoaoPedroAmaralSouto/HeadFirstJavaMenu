@@ -11,9 +11,9 @@ public class Ships{
     private final int columns = Numbers.length;
     protected void setPositionOfShips(){
         int i = 0;
-        int indexNext;
-        int indexNextNumber;
-        boolean direction;
+        int indexNext = 0;
+        int indexNextNumber = 0;
+        boolean direction = false;
         String temporaryPosition;
         while(i < 3) {
             Position[i] = null;
@@ -25,36 +25,109 @@ public class Ships{
                 Position[i] = getFirstPosition();
             }
             else{
-                boolean verify;
-                direction = rand.nextBoolean();
-                if(direction){
-                    indexNext = getIndex(Position[i - 1], Letters);
-                    indexNextNumber = setColumn(columns, indexNext);
+                int verify;
+                if(i == 1){
+                    direction = rand.nextBoolean();
+                    temporaryPosition = setSecondPosition(direction, i);
                 }
                 else{
-                    index = getIndex(Position[i - 1], Letters);
-                    indexNextNumber = getIndex(Position[i - 1], Numbers);
-                    indexNext = setRow(rows);
+                    if(direction){
+                        verify = verifyDirection(direction);
+                        if(verify == 1){
+                            indexNext = getIndex(Position[i - 1], Letters);
+                            indexNextNumber = 1 + getIndex(Position[i - 1], Numbers);
+                        }
+                        else if(verify == 0){
+                            indexNext = getIndex(Position[i - 1], Letters);
+                            indexNextNumber = getIndex(Position[i - 1], Numbers) - 1;
+                        }
+                    }
+                    else{
+                        verify = verifyDirection(direction);
+                        if(verify == 1){
+                            index = getIndex(Position[i - 1], Letters);
+                            indexNextNumber = getIndex(Position[i - 1], Numbers);
+                            indexNext = 1 + getIndex(Position[i - 1], Letters);
+                        }
+                        else if(verify == 0){
+                            index = getIndex(Position[i - 1], Letters);
+                            indexNextNumber = getIndex(Position[i - 1], Numbers);
+                            indexNext = getIndex(Position[i - 1], Letters) - 1;
+                        }
+                    }
+                    temporaryPosition = Letters[indexNext];
+                    temporaryPosition += Numbers[indexNextNumber];
                 }
-                temporaryPosition = Letters[indexNext];
-                temporaryPosition += Numbers[indexNextNumber];
-                verify = verifyIfTemporaryPositionExists(temporaryPosition, i);
+                Position[i] = temporaryPosition;
+                /*verify = verifyIfTemporaryPositionExists(temporaryPosition, i);
                 if(!verify){
                     Position[i] = temporaryPosition;
-                    if(Position[1] != null){
-                        orderPositionOfShips();
-                    }
                     verify = verifyExtremities(Position[i], Position[i - 1]);
+
                     if(!verify){
+                        Position[i] = null;
                         --i;
                     }
                 }
                 else{
                     --i;
-                }
+                }*/
             }
             i++;
         }
+    }
+
+    private int verifyDirection(boolean direction){
+        int row0, column0, row1, column1;
+        row0 = getIndex(Position[0], Letters);
+        column0 = getIndex(Position[0], Numbers);
+        row1 = getIndex(Position[1], Letters);
+        column1 = getIndex(Position[1], Numbers);
+        if(direction){
+            if(row0 == row1 && column0 < column1){
+                return 1;
+            }
+            else if(row0 == row1 && column0 > column1){
+                return 0;
+            }
+        }
+        else{
+            if(row0 < row1 && column0 == column1){
+                return 1;
+            }
+            else if(row0 > row1 && column0 == column1){
+                return 0;
+            }
+        }
+        return -1;
+    }
+
+    private String setSecondPosition(Boolean direction, int i){
+        int indexNext = 0;
+        int indexNextNumber = 0;
+        int row, column;
+        boolean flag = false;
+        while(!flag){
+            if(direction){
+                indexNext = getIndex(Position[i - 1], Letters);
+                indexNextNumber = setColumn(columns, indexNext);
+                column = getIndex(Position[i - 1], Numbers);
+                if(indexNextNumber == column + 1 || indexNextNumber == column - 1){
+                    flag = true;
+                }
+            }
+            else{
+                index = getIndex(Position[i - 1], Letters);
+                indexNextNumber = getIndex(Position[i - 1], Numbers);
+                indexNext = setRow(rows);
+                row = getIndex(Position[i - 1], Letters);
+                if(indexNext == row + 1 || indexNext == row - 1){
+                    flag = true;
+                }
+            }
+
+        }
+        return buildPosition(Letters[indexNext], Numbers[indexNextNumber]);
     }
 
     private boolean verifyIfTemporaryPositionExists(String position, int limit){
@@ -91,10 +164,10 @@ public class Ships{
         int col2 = getIndex(position, Numbers);
         if(!currentPosition.equals(position)){
             if((row2 == rows - 1 || row2 == rows - 2) && row1 == row2){
-                if(col2 == columns -1 || col2 == columns - 2){
+                if(col2 == columns -1){
                     return col1 == col2 - 1;
                 }
-                else if (col2 == 0 || col2 == 1){
+                else if (col2 == 0){
                     return col1 == col2 + 1;
                 }
                 else{
@@ -102,10 +175,10 @@ public class Ships{
                 }
             }
             else if((row2 == 0 || row2 == 1) && row1 == row2){
-                if(col1 == columns -1 || col1 == columns - 2){
+                if(col2 == columns -1){
                     return col1 == col2 - 1;
                 }
-                else if (col2 == 0 || col2 == 1){
+                else if (col2 == 0){
                     return col1 == col2 + 1;
                 }
                 else{
@@ -113,10 +186,10 @@ public class Ships{
                 }
             }
             else if ((row2 != rows - 1 && row2 != rows - 2) && row1 == row2){
-                if(col1 == columns -1 || col1 == columns - 2){
+                if(col2 == columns -1){
                     return col1 == col2 - 1;
                 }
-                else if (col2 == 0 || col2 == 1){
+                else if (col2 == 0){
                     return col1 == col2 + 1;
                 }
                 else{
@@ -124,10 +197,10 @@ public class Ships{
                 }
             }
             else if((row2 != 0 && row2 != 1) && row1 == row2){
-                if(col1 == columns -1 || col1 == columns - 2){
+                if(col2 == columns -1){
                     return col1 == col2 - 1;
                 }
-                else if (col2 == 0 || col2 == 1){
+                else if (col2 == 0){
                     return col1 == col2 + 1;
                 }
                 else{
@@ -135,10 +208,10 @@ public class Ships{
                 }
             }
             else if((col2 == columns - 1 || col2 == columns - 2) && col1 == col2){
-                if(row2 == rows -1 || row2 == rows - 2){
+                if(row2 == rows -1){
                     return row1 == row2 - 1;
                 }
-                else if (row2 == 0 || row2 == 1){
+                else if (row2 == 0){
                     return row1 == row2 + 1;
                 }
                 else{
@@ -146,10 +219,10 @@ public class Ships{
                 }
             }
             else if((col2 == 0 || col2 == 1) && col1 == col2){
-                if(row2 == rows -1 || row2 == rows - 2){
+                if(row2 == rows -1){
                     return row1 == row2 - 1;
                 }
-                else if (row2 == 0 || row2 == 1){
+                else if (row2 == 0){
                     return row1 == row2 + 1;
                 }
                 else{
@@ -157,10 +230,10 @@ public class Ships{
                 }
             }
             else if((col2 != columns - 1 && col2 != columns - 2) && col1 == col2){
-                if(row2 == rows -1 || row2 == rows - 2) {
+                if(row2 == rows -1){
                     return row1 == row2 - 1;
                 }
-                else if (row2 == 0 || row2 == 1){
+                else if (row2 == 0){
                     return row1 == row2 + 1;
                 }
                 else{
@@ -168,10 +241,10 @@ public class Ships{
                 }
             }
             else if((col2 != 0 && col2 != 1) && col1 == col2){
-                if(row2 == rows -1 || row2 == rows - 2){
+                if(row2 == rows -1){
                     return row1 == row2 - 1;
                 }
-                else if (row2 == 0 || row2 == 1){
+                else if (row2 == 0){
                     return row1 == row2 + 1;
                 }
                 else{
@@ -204,7 +277,7 @@ public class Ships{
     private int setColumn(int limit, int index2) {
         int aux;
         if (index2 == limit - 1) {
-            aux = rand.nextInt(limit - 3, index2 -1);
+            aux = rand.nextInt(limit - 3, index2);
         }
         else if (index2 == 0) {
             aux = rand.nextInt(index2 + 3);
@@ -218,7 +291,7 @@ public class Ships{
     private int setRow(int limit){
         int aux;
         if (index == limit - 1) {
-            aux = rand.nextInt(limit - 3, index -1);
+            aux = rand.nextInt(limit - 3, index);
         }
         else if (index == 0) {
             aux = rand.nextInt(index + 3);
