@@ -16,7 +16,6 @@ public class Ships{
         int indexNext = 0;
         int indexNextNumber = 0;
         boolean direction = false;
-        String temporaryPosition;
         while(i < 3) {
             Position[i] = null;
             i++;
@@ -30,7 +29,7 @@ public class Ships{
                 int verify;
                 if(i == 1){
                     direction = rand.nextBoolean();
-                    temporaryPosition = setSecondPosition(direction, i);
+                    Position[i]  = setSecondPosition(direction, i);
                 }
                 else{
                     if(direction){
@@ -57,23 +56,9 @@ public class Ships{
                             indexNext = getIndex(Position[i - 1], Letters) - 1;
                         }
                     }
-                    temporaryPosition = Letters[indexNext];
-                    temporaryPosition += Numbers[indexNextNumber];
+                    Position[i] = Letters[indexNext];
+                    Position[i]  += Numbers[indexNextNumber];
                 }
-                Position[i] = temporaryPosition;
-                /*verify = verifyIfTemporaryPositionExists(temporaryPosition, i);
-                if(!verify){
-                    Position[i] = temporaryPosition;
-                    verify = verifyExtremities(Position[i], Position[i - 1]);
-
-                    if(!verify){
-                        Position[i] = null;
-                        --i;
-                    }
-                }
-                else{
-                    --i;
-                }*/
             }
             i++;
         }
@@ -158,131 +143,6 @@ public class Ships{
 
         }
         return buildPosition(Letters[indexNext], Numbers[indexNextNumber]);
-    }
-
-    private boolean verifyIfTemporaryPositionExists(String position, int limit){
-        for (int i = 0; i < limit; i++) {
-            if (Position[i].equals(position)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void orderPositionOfShips() {
-        for (int i = 0; i < Position.length - 1; i++) {
-            for (int j = i + 1; j < Position.length; j++) {
-                if (Position[i] == null || Position[j] == null) continue;
-                int row1 = getIndex(Position[i], Letters);
-                int col1 = getIndex(Position[i], Numbers);
-                int row2 = getIndex(Position[j], Letters);
-                int col2 = getIndex(Position[j], Numbers);
-                if (row1 > row2 || (row1 == row2 && col1 > col2)) {
-                    String aux = Position[i];
-                    Position[i] = Position[j];
-                    Position[j] = aux;
-                }
-            }
-        }
-    }
-
-
-    private boolean verifyExtremities(String currentPosition, String position){
-        int row1 = getIndex(currentPosition, Letters);
-        int col1 = getIndex(currentPosition, Numbers);
-        int row2 = getIndex(position, Letters);
-        int col2 = getIndex(position, Numbers);
-        if(!currentPosition.equals(position)){
-            if((row2 == rows - 1 || row2 == rows - 2) && row1 == row2){
-                if(col2 == columns -1){
-                    return col1 == col2 - 1;
-                }
-                else if (col2 == 0){
-                    return col1 == col2 + 1;
-                }
-                else{
-                    return col1 == col2 + 1 ||  col1 == col2 - 1;
-                }
-            }
-            else if((row2 == 0 || row2 == 1) && row1 == row2){
-                if(col2 == columns -1){
-                    return col1 == col2 - 1;
-                }
-                else if (col2 == 0){
-                    return col1 == col2 + 1;
-                }
-                else{
-                    return col1 == col2 + 1 ||  col1 == col2 - 1;
-                }
-            }
-            else if ((row2 != rows - 1 && row2 != rows - 2) && row1 == row2){
-                if(col2 == columns -1){
-                    return col1 == col2 - 1;
-                }
-                else if (col2 == 0){
-                    return col1 == col2 + 1;
-                }
-                else{
-                    return col1 == col2 + 1 ||  col1 == col2 - 1;
-                }
-            }
-            else if((row2 != 0 && row2 != 1) && row1 == row2){
-                if(col2 == columns -1){
-                    return col1 == col2 - 1;
-                }
-                else if (col2 == 0){
-                    return col1 == col2 + 1;
-                }
-                else{
-                    return col1 == col2 + 1 ||  col1 == col2 - 1;
-                }
-            }
-            else if((col2 == columns - 1 || col2 == columns - 2) && col1 == col2){
-                if(row2 == rows -1){
-                    return row1 == row2 - 1;
-                }
-                else if (row2 == 0){
-                    return row1 == row2 + 1;
-                }
-                else{
-                    return row1 == row2 + 1 ||  row1 == row2 - 1;
-                }
-            }
-            else if((col2 == 0 || col2 == 1) && col1 == col2){
-                if(row2 == rows -1){
-                    return row1 == row2 - 1;
-                }
-                else if (row2 == 0){
-                    return row1 == row2 + 1;
-                }
-                else{
-                    return row1 == row2 + 1 ||  row1 == row2 - 1;
-                }
-            }
-            else if((col2 != columns - 1 && col2 != columns - 2) && col1 == col2){
-                if(row2 == rows -1){
-                    return row1 == row2 - 1;
-                }
-                else if (row2 == 0){
-                    return row1 == row2 + 1;
-                }
-                else{
-                    return row1 == row2 + 1 ||  row1 == row2 - 1;
-                }
-            }
-            else if((col2 != 0 && col2 != 1) && col1 == col2){
-                if(row2 == rows -1){
-                    return row1 == row2 - 1;
-                }
-                else if (row2 == 0){
-                    return row1 == row2 + 1;
-                }
-                else{
-                    return row1 == row2 + 1 ||  row1 == row2 - 1;
-                }
-            }
-        }
-        return false;
     }
 
     protected String[] getPositions(){
