@@ -8,8 +8,13 @@ public class GameLauncherBattleShip{
         PlayerBattleship playerBattleship = new PlayerBattleship();
         startGame.setShips();
         startGame.viewShips();
+        int flag = 0;
         while(!gameOver){
-            playerBattleship.setChoise();
+            if(flag == 0){
+                playerBattleship.setChoise();
+            }
+            if(flag != 0)
+                playerBattleship.setChoise();
             if(playerBattleship.getChoise().equalsIgnoreCase("cheat")){
                 cheat = true;
             }
@@ -21,17 +26,16 @@ public class GameLauncherBattleShip{
                 gameOver = true;
             }
             else{
+                startGame.verifyHit(playerBattleship.getChoise());
+                ClearTerminal.clear();
                 if(!cheat){
-                    startGame.verifyHit(playerBattleship.getChoise());
-                    ClearTerminal.clear();
                     startGame.viewShips();
                 }
-                else if(cheat){
-                    startGame.verifyHit(playerBattleship.getChoise());
-                    ClearTerminal.clear();
+                else{
                     startGame.cheatedViewShips();
                 }
             }
+            flag = 1;
         }
         System.out.println("Number of attempts: " + startGame.getContChoises());
     }

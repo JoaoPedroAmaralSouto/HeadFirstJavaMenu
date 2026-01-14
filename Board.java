@@ -29,15 +29,17 @@ public class Board {
     public void setShips(){
         Random rand = new Random();
         int limit = rand.nextInt(4) + 1;
-        setTotalShips(limit);
+        int cont = 0;
         while(ships.size() < limit){
             Ships ship = new Ships();
             ship.setPositionOfShips();
             if(canPlaceShip(ship)) {
                 ship.setID(ships.size());
                 ships.add(ship);
+                cont += ship.getPositions().length;
             }
         }
+        setTotalShips(cont);
     }
 
     private boolean canPlaceShip(Ships newShip) {
@@ -128,7 +130,7 @@ public class Board {
                 position = Letters[i] + Numbers[j];
                 hit = false;
                 for(String attempt : attempts){
-                    if(position.contains(attempt)){
+                    if(position.equals(attempt)){
                         System.out.print("X");
                         hit = true;
                         break;
