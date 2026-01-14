@@ -28,8 +28,7 @@ public class Board {
 
     public void setShips(){
         Random rand = new Random();
-        //int limit = rand.nextInt(4) + 1;
-        int limit = 4;
+        int limit = rand.nextInt(4) + 1;
         setTotalShips(limit);
         while(ships.size() < limit){
             Ships ship = new Ships();
@@ -128,20 +127,20 @@ public class Board {
                 }
                 position = Letters[i] + Numbers[j];
                 hit = false;
-                for(Ships ship : ships){
-                    for(String posA : ship.getPositions()){
-                        if(position.equals(posA)){
-                            System.out.print(ship.getID());
-                            hit = true;
-                            break;
-                        }
-                    }
-                }
                 for(String attempt : attempts){
                     if(position.contains(attempt)){
                         System.out.print("X");
                         hit = true;
                         break;
+                    }
+                }
+                for(Ships ship : ships){
+                    for(String posA : ship.getPositions()){
+                        if(position.equals(posA) && !hit){
+                            System.out.print(ship.getID());
+                            hit = true;
+                            break;
+                        }
                     }
                 }
                 if(!hit){
