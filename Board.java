@@ -34,8 +34,10 @@ public class Board {
         while(ships.size() < limit){
             Ships ship = new Ships();
             ship.setPositionOfShips();
-            if(canPlaceShip(ship))
+            if(canPlaceShip(ship)) {
+                ship.setID(ships.size());
                 ships.add(ship);
+            }
         }
     }
 
@@ -119,7 +121,6 @@ public class Board {
     protected void cheatedViewShips(){
         String position;
         boolean hit;
-        int cont = 0;
         for(int i = Letters.length - 1; i >= 0; i--){
             for(int j = 0; j < Numbers.length; j++){
                 if(j == 0){
@@ -130,8 +131,7 @@ public class Board {
                 for(Ships ship : ships){
                     for(String posA : ship.getPositions()){
                         if(position.equals(posA)){
-                            System.out.print(cont);
-                            cont++;
+                            System.out.print(ship.getID());
                             hit = true;
                             break;
                         }

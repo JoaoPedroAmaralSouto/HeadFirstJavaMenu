@@ -9,6 +9,8 @@ public class Ships{
     private final String [] Numbers = {"0", "1", "2", "3", "4", "5", "6"};
     private final int rows = Letters.length;
     private final int columns = Numbers.length;
+    private int ID;
+
     protected void setPositionOfShips(){
         int i = 0;
         int indexNext = 0;
@@ -77,6 +79,14 @@ public class Ships{
         }
     }
 
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
     private int verifyDirection(boolean direction){
         int row0, column0, row1, column1;
         row0 = getIndex(Position[0], Letters);
@@ -112,7 +122,17 @@ public class Ships{
                 indexNext = getIndex(Position[i - 1], Letters);
                 indexNextNumber = setColumn(columns, indexNext);
                 column = getIndex(Position[i - 1], Numbers);
-                if(indexNextNumber == column + 1 || indexNextNumber == column - 1){
+                if(column == 0 || column == 1){
+                    if(indexNextNumber == column + 1){
+                        flag = true;
+                    }
+                }
+                else if(column == columns -1  || column == columns - 2){
+                    if(indexNextNumber == column -1){
+                        flag = true;
+                    }
+                }
+                else if(indexNextNumber == column + 1 || indexNextNumber == column - 1){
                     flag = true;
                 }
             }
@@ -121,7 +141,17 @@ public class Ships{
                 indexNextNumber = getIndex(Position[i - 1], Numbers);
                 indexNext = setRow(rows);
                 row = getIndex(Position[i - 1], Letters);
-                if(indexNext == row + 1 || indexNext == row - 1){
+                if(row == 0 || row == 1){
+                    if(indexNext == row + 1){
+                        flag = true;
+                    }
+                }
+                else if(row == rows -1 || row == rows -2){
+                    if(indexNext == row - 1){
+                        flag = true;
+                    }
+                }
+                else if(indexNext == row + 1 || indexNext == row - 1){
                     flag = true;
                 }
             }
