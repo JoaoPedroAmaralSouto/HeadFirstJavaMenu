@@ -97,10 +97,8 @@ public class Board {
         String position;
         boolean hit;
         for(int i = Letters.length - 1; i >= 0; i--){
+            System.out.print(Letters[i]);
             for(int j = 0; j < Numbers.length; j++){
-                if(j == 0){
-                    System.out.println();
-                }
                 position = Letters[i] + Numbers[j];
                 hit = false;
                 for(String attempt : attempts){
@@ -114,6 +112,11 @@ public class Board {
                     System.out.print("*");
                 }
             }
+            System.out.println();
+        }
+        System.out.print(" ");
+        for (String number : Numbers) {
+            System.out.print(number);
         }
         System.out.println();
         System.out.println("set exit to end game");
@@ -123,10 +126,8 @@ public class Board {
         String position;
         boolean hit;
         for(int i = Letters.length - 1; i >= 0; i--){
+            System.out.print(Letters[i]);
             for(int j = 0; j < Numbers.length; j++){
-                if(j == 0){
-                    System.out.println();
-                }
                 position = Letters[i] + Numbers[j];
                 hit = false;
                 for(String attempt : attempts){
@@ -149,6 +150,11 @@ public class Board {
                     System.out.print("*");
                 }
             }
+            System.out.println();
+        }
+        System.out.print(" ");
+        for (String number : Numbers) {
+            System.out.print(number);
         }
         System.out.println();
         System.out.println("set exit to end game");

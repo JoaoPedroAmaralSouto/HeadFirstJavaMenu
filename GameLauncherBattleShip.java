@@ -6,38 +6,35 @@ public class GameLauncherBattleShip{
         boolean gameOver = false;
         boolean cheat = false;
         PlayerBattleship playerBattleship = new PlayerBattleship();
+        ClearTerminal.clear();
         startGame.setShips();
         startGame.viewShips();
-        int flag = 0;
         while(!gameOver){
-            if(flag == 0){
-                playerBattleship.setChoise();
-            }
-            if(flag != 0)
-                playerBattleship.setChoise();
-            if(playerBattleship.getChoise().equalsIgnoreCase("cheat")){
-                cheat = true;
-            }
-            if(playerBattleship.getChoise().equalsIgnoreCase("exit")){
-                gameOver = true;
-            }
-            else if (startGame.getTotalShips() == 0) {
+            if (startGame.getTotalShips() == 0) {
                 System.out.println("Congratulations! You win!");
                 gameOver = true;
             }
-            else if(playerBattleship.getChoise().isEmpty()){
-                System.out.println("You set ENTER without choosing any position, please, try again a valid input");
-            }
-            else {
-                startGame.verifyHit(playerBattleship.getChoise());
-                ClearTerminal.clear();
-                if (!cheat) {
-                    startGame.viewShips();
-                } else {
-                    startGame.cheatedViewShips();
+            else{
+                playerBattleship.setChoise();
+                if(playerBattleship.getChoise().equalsIgnoreCase("cheat")){
+                    cheat = true;
+                }
+                if(playerBattleship.getChoise().equalsIgnoreCase("exit")){
+                    gameOver = true;
+                }
+                else if(playerBattleship.getChoise().isEmpty()){
+                    System.out.println("You set ENTER without choosing any position, please, try again a valid input");
+                }
+                else {
+                    startGame.verifyHit(playerBattleship.getChoise());
+                    ClearTerminal.clear();
+                    if (!cheat) {
+                        startGame.viewShips();
+                    } else {
+                        startGame.cheatedViewShips();
+                    }
                 }
             }
-            flag = 1;
         }
         System.out.println("Number of attempts: " + startGame.getContChoises());
     }
