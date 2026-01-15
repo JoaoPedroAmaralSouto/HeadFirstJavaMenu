@@ -47,7 +47,7 @@ public class Main{
                 case 6 -> { }
                 default -> System.out.println("Invalid choise.");
             }
-            if(choise != exercices.length && choise != 0){
+            if(choise != exercices.length){
                 System.out.println("Enter any key to go back to the menu");
                 InputUtils.waitEnter();
             }

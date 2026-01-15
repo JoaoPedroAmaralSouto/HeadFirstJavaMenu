@@ -104,7 +104,7 @@ public class Board {
                 position = Letters[i] + Numbers[j];
                 hit = false;
                 for(String attempt : attempts){
-                    if(position.contains(attempt)){
+                    if(position.equals(attempt)){
                         System.out.print("X");
                         hit = true;
                         break;

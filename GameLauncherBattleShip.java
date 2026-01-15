@@ -25,13 +25,15 @@ public class GameLauncherBattleShip{
                 System.out.println("Congratulations! You win!");
                 gameOver = true;
             }
-            else{
+            else if(playerBattleship.getChoise().isEmpty()){
+                System.out.println("You set ENTER without choosing any position, please, try again a valid input");
+            }
+            else {
                 startGame.verifyHit(playerBattleship.getChoise());
                 ClearTerminal.clear();
-                if(!cheat){
+                if (!cheat) {
                     startGame.viewShips();
-                }
-                else{
+                } else {
                     startGame.cheatedViewShips();
                 }
             }
