@@ -10,7 +10,7 @@ public class GameLauncherBattleShip{
         startGame.setShips();
         startGame.viewShips();
         while(!gameOver){
-            if (startGame.getTotalShips() == 0) {
+            if (startGame.getShips().isEmpty()) {
                 System.out.println("Congratulations! You win!");
                 gameOver = true;
             }

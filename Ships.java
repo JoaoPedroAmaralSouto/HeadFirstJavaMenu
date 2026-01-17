@@ -1,8 +1,9 @@
 package Use_a_cabeca_Java;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Ships{
-    private final String[] Position = new String[3];
+    private final ArrayList<String> Position = new ArrayList<>();
     private final Random rand = new Random();
     private int index = 0;
     private final String [] Letters = {"A", "B", "C", "D", "E", "F", "G"};
@@ -12,52 +13,50 @@ public class Ships{
     private int ID;
 
     protected void setPositionOfShips(){
-        int i = 0;
+        int i;
         int indexNext = 0;
         int indexNextNumber = 0;
         boolean direction = false;
-        while(i < 3) {
-            Position[i] = null;
-            i++;
-        }
         i = 0;
         while(i < 3){
             if(i == 0){
-                Position[i] = getFirstPosition();
+                Position.add(getFirstPosition());
             }
             else{
+                String temporaryPosition;
                 int verify;
                 if(i == 1){
                     direction = rand.nextBoolean();
-                    Position[i]  = setSecondPosition(direction, i);
+                    Position.add(setSecondPosition(direction));
                 }
                 else{
                     if(direction){
                         verify = verifyDirection(direction);
                         if(verify == 1){
-                            indexNext = getIndex(Position[i - 1], Letters);
-                            indexNextNumber = 1 + getIndex(Position[i - 1], Numbers);
+                            indexNext = getIndex(Position.getLast(), Letters);
+                            indexNextNumber = 1 + getIndex(Position.getLast(), Numbers);
                         }
                         else if(verify == 0){
-                            indexNext = getIndex(Position[i - 1], Letters);
-                            indexNextNumber = getIndex(Position[i - 1], Numbers) - 1;
+                            indexNext = getIndex(Position.getLast(), Letters);
+                            indexNextNumber = getIndex(Position.getLast(), Numbers) - 1;
                         }
                     }
                     else{
                         verify = verifyDirection(direction);
                         if(verify == 1){
-                            index = getIndex(Position[i - 1], Letters);
-                            indexNextNumber = getIndex(Position[i - 1], Numbers);
-                            indexNext = 1 + getIndex(Position[i - 1], Letters);
+                            index = getIndex(Position.getLast(), Letters);
+                            indexNextNumber = getIndex(Position.getLast(), Numbers);
+                            indexNext = 1 + getIndex(Position.getLast(), Letters);
                         }
                         else if(verify == 0){
-                            index = getIndex(Position[i - 1], Letters);
-                            indexNextNumber = getIndex(Position[i - 1], Numbers);
-                            indexNext = getIndex(Position[i - 1], Letters) - 1;
+                            index = getIndex(Position.getLast(), Letters);
+                            indexNextNumber = getIndex(Position.getLast(), Numbers);
+                            indexNext = getIndex(Position.getLast(), Letters) - 1;
                         }
                     }
-                    Position[i] = Letters[indexNext];
-                    Position[i]  += Numbers[indexNextNumber];
+                    temporaryPosition= Letters[indexNext];
+                    temporaryPosition  += Numbers[indexNextNumber];
+                    Position.add(temporaryPosition);
                 }
             }
             i++;
@@ -74,10 +73,10 @@ public class Ships{
 
     private int verifyDirection(boolean direction){
         int row0, column0, row1, column1;
-        row0 = getIndex(Position[0], Letters);
-        column0 = getIndex(Position[0], Numbers);
-        row1 = getIndex(Position[1], Letters);
-        column1 = getIndex(Position[1], Numbers);
+        row0 = getIndex(Position.getFirst(), Letters);
+        column0 = getIndex(Position.getFirst(), Numbers);
+        row1 = getIndex(Position.get(1), Letters);
+        column1 = getIndex(Position.get(1), Numbers);
         if(direction){
             if(row0 == row1 && column0 < column1){
                 return 1;
@@ -97,16 +96,16 @@ public class Ships{
         return -1;
     }
 
-    private String setSecondPosition(Boolean direction, int i){
+    private String setSecondPosition(Boolean direction){
         int indexNext = 0;
         int indexNextNumber = 0;
         int row, column;
         boolean flag = false;
         while(!flag){
             if(direction){
-                indexNext = getIndex(Position[i - 1], Letters);
+                indexNext = getIndex(Position.getLast(), Letters);
                 indexNextNumber = setColumn(columns, indexNext);
-                column = getIndex(Position[i - 1], Numbers);
+                column = getIndex(Position.getLast(), Numbers);
                 if(column == 0 || column == 1){
                     if(indexNextNumber == column + 1){
                         flag = true;
@@ -122,10 +121,10 @@ public class Ships{
                 }
             }
             else{
-                index = getIndex(Position[i - 1], Letters);
-                indexNextNumber = getIndex(Position[i - 1], Numbers);
+                index = getIndex(Position.getLast(), Letters);
+                indexNextNumber = getIndex(Position.getLast(), Numbers);
                 indexNext = setRow(rows);
-                row = getIndex(Position[i - 1], Letters);
+                row = getIndex(Position.getLast(), Letters);
                 if(row == 0 || row == 1){
                     if(indexNext == row + 1){
                         flag = true;
@@ -145,7 +144,7 @@ public class Ships{
         return buildPosition(Letters[indexNext], Numbers[indexNextNumber]);
     }
 
-    protected String[] getPositions(){
+    protected ArrayList<String> getPositions(){
         return Position;
     }
 
@@ -210,5 +209,9 @@ public class Ships{
             }
         }
         return -1;
+    }
+
+    public void removePosition(String position){
+        Position.removeIf(pos -> pos.equals(position));
     }
 }

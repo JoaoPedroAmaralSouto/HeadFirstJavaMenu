@@ -36,10 +36,13 @@ public class Board {
             if(canPlaceShip(ship)) {
                 ship.setID(ships.size());
                 ships.add(ship);
-                cont += ship.getPositions().length;
+                cont += ship.getPositions().size();
             }
         }
         setTotalShips(cont);
+    }
+    public ArrayList<Ships> getShips(){
+        return ships;
     }
 
     private boolean canPlaceShip(Ships newShip) {
@@ -71,10 +74,18 @@ public class Board {
         return false;
     }
 
+    private void removeShip(Ships ship){
+        ships.remove(ship);
+    }
+
     protected boolean verifyHit(String hit){
         for (Ships ship : ships) {
             for(String posA : ship.getPositions()){
                 if(hit.equals(posA)){
+                    ship.removePosition(posA);
+                    if(ship.getPositions().isEmpty()){
+                        removeShip(ship);
+                    }
                     if(!verifyHitedShip(hit)){
                         totalShips--;
                         attempts.add(hit);
