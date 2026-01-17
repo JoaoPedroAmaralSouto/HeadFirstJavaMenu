@@ -8,15 +8,6 @@ public class Board {
     private final String [] Numbers = {"0", "1", "2", "3", "4", "5", "6"};
     private ArrayList<String> attempts = new ArrayList<>();
     private int contChoises = 0;
-    private int totalShips;
-
-    public int getTotalShips() {
-        return totalShips;
-    }
-
-    private void setTotalShips(int totalShips) {
-        this.totalShips = totalShips;
-    }
 
     public void setContChoises() {
         this.contChoises++;
@@ -29,17 +20,14 @@ public class Board {
     public void setShips(){
         Random rand = new Random();
         int limit = rand.nextInt(4) + 1;
-        int cont = 0;
         while(ships.size() < limit){
             Ships ship = new Ships();
             ship.setPositionOfShips();
             if(canPlaceShip(ship)) {
                 ship.setID(ships.size());
                 ships.add(ship);
-                cont += ship.getPositions().size();
             }
         }
-        setTotalShips(cont);
     }
     public ArrayList<Ships> getShips(){
         return ships;
@@ -85,10 +73,6 @@ public class Board {
                     ship.removePosition(posA);
                     if(ship.getPositions().isEmpty()){
                         removeShip(ship);
-                    }
-                    if(!verifyHitedShip(hit)){
-                        totalShips--;
-                        attempts.add(hit);
                     }
                     if(!hit.equals("cheat") && !hit.equals("exit")){
                         setContChoises();
