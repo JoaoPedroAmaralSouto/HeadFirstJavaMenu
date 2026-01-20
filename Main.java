@@ -45,7 +45,11 @@ public class Main{
                     c5.showMenu();
                     c5.execute();
                 }
-                case 6 -> { }
+                case 6 ->{
+                    c8.showMenu();
+                    c8.execute();
+                }
+                case 7 -> { }
                 default -> System.out.println("Invalid choise.");
             }
             if(choise != exercices.length){

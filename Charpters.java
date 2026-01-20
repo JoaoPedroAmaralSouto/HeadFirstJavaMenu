@@ -5,7 +5,7 @@ public abstract class Charpters {
     protected String[] charpter;
     public void showMenu(){
         InputUtils.clearTerminal();
-        for(int i = 0; i < choiseExercices; i++){
+        for(int i = 0; i < charpter.length; i++){
             System.out.println(i + 1 + "-" + charpter[i]);
         }
         System.out.println("Select a exercice above");
