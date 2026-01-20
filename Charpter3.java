@@ -3,13 +3,10 @@ package Use_a_cabeca_Java;
 public class Charpter3 extends Charpters{
     public Charpter3(){
         charpter = new String[] {"TestArrays", "Triangle"};
-        i = 0;
-        choiseExercices = 0;
     }
 
     @Override
     protected void execute(){
-        choiseExercices = 0;
         while(choiseExercices <= 0 || choiseExercices > charpter.length){
             choiseExercices = VerifyInt.verify(Br.getReader());
         }

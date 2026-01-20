@@ -2,8 +2,6 @@ package Use_a_cabeca_Java;
 
 public class Charpter1 extends Charpters {
     public Charpter1(){
-        choiseExercices = 0;
-        i = 0;
         charpter = new String [] {"DooBee", "PhraseOMatic", "Shuffle1"};
     }
 

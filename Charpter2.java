@@ -2,8 +2,6 @@ package Use_a_cabeca_Java;
 
 public class Charpter2 extends Charpters {
     public Charpter2(){
-        i = 0;
-        choiseExercices = 0;
         charpter = new String[]{"GuessGame", "DrumKitTestDrive", "EchoTestDrive"};
     }
 
